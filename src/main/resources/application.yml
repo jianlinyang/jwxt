@@ -1,0 +1,56 @@
+spring:
+  rabbitmq:
+    host: 106.14.183.86
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        prefetch: 1
+        auto-startup: true
+        default-requeue-rejected: true
+    template:
+      retry:
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
+  datasource:
+    url: jdbc:mysql://106.14.183.86/jwxt?userUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat
+      max-active: 100
+      initial-size: 2
+      max-wait: 80
+      time-between-eviction-runs-millis: 60000
+      min-idle: 50
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+  redis:
+    host: 106.14.183.86
+    port: 6379
+    password: 123456
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+mybatis:
+  type-aliases-package: com.shu.jwxt.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+  mapper-locations: classpath:com.shu.jwxt.dao/*.xml
