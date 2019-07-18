@@ -17,4 +17,8 @@ public interface UserService {
     User login(UserVo userVo,String password);
 
     void register(UserVo uservo, String password);
+
+    UserVo getCache(String cookieValue);
+
+    void setCache(String token, UserVo uservo, Long cookieMaxAge);
 }

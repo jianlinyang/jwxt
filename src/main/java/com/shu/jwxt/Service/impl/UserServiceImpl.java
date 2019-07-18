@@ -4,9 +4,10 @@ import com.shu.jwxt.Service.UserService;
 import com.shu.jwxt.entity.User;
 import com.shu.jwxt.exception.GlobalException;
 import com.shu.jwxt.mapper.UserMapper;
+import com.shu.jwxt.redis.RedisService;
 import com.shu.jwxt.result.CodeMsg;
-import com.shu.jwxt.result.Result;
 import com.shu.jwxt.utils.MD5Util;
+import com.shu.jwxt.utils.MapperUtils;
 import com.shu.jwxt.vo.UserVo;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,29 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
+    private final RedisService redisService;
 
-    public UserServiceImpl(UserMapper userMapper) {
+
+    public UserServiceImpl(UserMapper userMapper, RedisService redisService) {
+        this.redisService = redisService;
         this.userMapper = userMapper;
+    }
+
+    @Override
+    public UserVo getCache(String cookieValue) {
+        String s = redisService.get(cookieValue);
+        UserVo userVo = null;
+        try {
+            userVo = MapperUtils.json2pojo(s, UserVo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userVo;
+    }
+
+    @Override
+    public void setCache(String token, UserVo uservo, Long cookieMaxAge) {
+        redisService.set(token,uservo,cookieMaxAge);
     }
 
     @Override
