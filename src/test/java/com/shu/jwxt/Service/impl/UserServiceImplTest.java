@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -26,6 +28,7 @@ public class UserServiceImplTest {
         user.setUserId(17723942);
         user.setUserName("yang");
         user.setPassword("yyyy123");
+        user.setCreatDate(new Date());
         userService.insert(user);
     }
 }
