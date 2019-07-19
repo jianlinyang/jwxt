@@ -2,20 +2,21 @@ package com.shu.jwxt.redis;
 
 /**
  * @author yang
- * @date 2019/6/28 14:11
+ * @date 2019/7/19 12:37
  */
-public interface KeyPrefix {
+public enum KeyPrefix {
     /**
-     * 过期时间
-     *
-     * @return {@link Integer}
+     * RedisKey前缀
      */
-    Integer expireSeconds();
+    USER_KEY("userKey:")
+    ;
+    private String key;
 
-    /**
-     * 获取前缀
-     *
-     * @return {@link String}
-     */
-    String getPrefix();
+    KeyPrefix(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
 }

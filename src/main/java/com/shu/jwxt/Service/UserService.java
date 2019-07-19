@@ -21,4 +21,6 @@ public interface UserService {
     UserVo getCache(String cookieValue);
 
     void setCache(String token, UserVo uservo, Long cookieMaxAge);
+
+    void delete(String s);
 }

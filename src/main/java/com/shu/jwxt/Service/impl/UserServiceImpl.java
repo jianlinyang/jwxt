@@ -10,6 +10,7 @@ import com.shu.jwxt.utils.MD5Util;
 import com.shu.jwxt.utils.MapperUtils;
 import com.shu.jwxt.vo.UserVo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -32,17 +33,19 @@ public class UserServiceImpl implements UserService {
     public UserVo getCache(String cookieValue) {
         String s = redisService.get(cookieValue);
         UserVo userVo = null;
-        try {
-            userVo = MapperUtils.json2pojo(s, UserVo.class);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!StringUtils.isEmpty(s)) {
+            try {
+                userVo = MapperUtils.json2pojo(s, UserVo.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return userVo;
     }
 
     @Override
     public void setCache(String token, UserVo uservo, Long cookieMaxAge) {
-        redisService.set(token,uservo,cookieMaxAge);
+        redisService.set(token, uservo, cookieMaxAge);
     }
 
     @Override
@@ -66,6 +69,11 @@ public class UserServiceImpl implements UserService {
         user.setUserId(uservo.getUserId());
         user.setUserName(uservo.getUserName());
         insert(user);
+    }
+
+    @Override
+    public void delete(String s) {
+        redisService.delete(s);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class CodeMsg {
     public static CodeMsg REQUEST_ILLEGAL = new CodeMsg(500102, "请求非法");
 
     //登录模块
-    public static CodeMsg SESSION_ERROR = new CodeMsg(500210, "SESSION不存在或者已失效");
+    public static CodeMsg SESSION_ERROR = new CodeMsg(500210, "您还没有登录,请先登录");
     public static CodeMsg PASSWORD_EMPTY = new CodeMsg(500211, "密码不能为空");
     public static CodeMsg MOBILE_EMPTY = new CodeMsg(500212, "手机号不能为空");
     public static CodeMsg MOBILE_ERROR = new CodeMsg(500213, "手机号错误");
