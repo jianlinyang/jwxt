@@ -1,7 +1,10 @@
 package com.shu.jwxt.Service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.shu.jwxt.Service.LessonService;
 import com.shu.jwxt.Service.UserService;
+import com.shu.jwxt.entity.Lesson;
 import com.shu.jwxt.mapper.LessonMapper;
 import com.shu.jwxt.mapper.SpMapper;
 import com.shu.jwxt.mapper.UserTimetableMapper;
@@ -38,15 +41,17 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public LessonVo select(Integer userId) {
-        LessonVo lessonVo = new LessonVo();
-        return null;
-    }
-
-    @Override
     public List<LessonVo> getLessonVos(int pageNum, int pageSize, Integer userId) {
         int offset = (pageNum - 1) * pageSize;
         List<LessonVo> lessonVos = spMapper.listLessonVo(userId, offset, pageSize);
         return lessonVos;
+    }
+
+    @Override
+    public List<Lesson> selectAllLesson(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "lesson_id");
+        List<Lesson> lessons = lessonMapper.selectAll();
+        PageInfo<Lesson> pageInfo = new PageInfo<>(lessons);
+        return pageInfo.getList();
     }
 }

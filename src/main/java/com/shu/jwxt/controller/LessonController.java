@@ -1,6 +1,7 @@
 package com.shu.jwxt.controller;
 
 import com.shu.jwxt.Service.LessonService;
+import com.shu.jwxt.entity.Lesson;
 import com.shu.jwxt.result.Result;
 import com.shu.jwxt.utils.CookieUtils;
 import com.shu.jwxt.vo.LessonVo;
@@ -27,10 +28,16 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
-    @GetMapping("/listLesson")
-    public Result listLesson(HttpServletRequest request, int pageNum, int pageSize) {
+    @GetMapping("/myLesson")
+    public Result myLesson(HttpServletRequest request, int pageNum, int pageSize) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
         List<LessonVo> lessonVos = lessonService.getLessonVos(pageNum, pageSize, userVo.getUserId());
         return Result.success(lessonVos);
+    }
+
+    @GetMapping("/listLesson")
+    public Result listLesson(int pageNum, int pageSize) {
+        List<Lesson> lessons = lessonService.selectAllLesson(pageNum, pageSize);
+        return Result.success(lessons);
     }
 }

@@ -1,5 +1,6 @@
 package com.shu.jwxt.Service;
 
+import com.shu.jwxt.entity.Lesson;
 import com.shu.jwxt.vo.LessonVo;
 import com.shu.jwxt.vo.UserVo;
 
@@ -13,8 +14,7 @@ public interface LessonService {
 
     UserVo getUserVo(String s)  ;
 
-    LessonVo select(Integer userId);
-
     List<LessonVo> getLessonVos(int pageNum, int pageSize, Integer userId);
 
+    List<Lesson> selectAllLesson(int pageNum, int pageSize);
 }
