@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.jwxt.mapper.SpMapper">
+    <resultMap id="lessonVo" type="com.shu.jwxt.vo.LessonVo">
+        <result column="lesson_name" property="lessonName"/>
+        <result column="lesson_teacher" property="lessonTeacher"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
+    <select id="listLessonVo" resultMap="lessonVo">
+            SELECT l.lesson_name,
+                   l.lesson_teacher,
+                   l.start_time,
+                   l.end_time
+            FROM lesson as l
+            WHERE lesson_id in (
+                      SELECT user_timetable.lesson_id
+                      FROM user_timetable
+                      WHERE user_id = #{userId})
+            ORDER BY l.lesson_id LIMIT #{offset},#{pageSize}
+    </select>
+</mapper>
