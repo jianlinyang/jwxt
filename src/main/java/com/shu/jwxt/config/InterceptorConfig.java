@@ -11,17 +11,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     private final AccessInterceptor accessInterceptor;
-//    private final LoginInterceptor loginInterceptor;
+    private final LoginInterceptor loginInterceptor;
 
-    public InterceptorConfig(AccessInterceptor accessInterceptor) {
+    public InterceptorConfig(AccessInterceptor accessInterceptor, LoginInterceptor loginInterceptor) {
         this.accessInterceptor = accessInterceptor;
+        this.loginInterceptor = loginInterceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/login")
-                .excludePathPatterns("/register");
-//        registry.addInterceptor(loginInterceptor).addPathPatterns("/login");
+        registry.addInterceptor(accessInterceptor).addPathPatterns("/**").excludePathPatterns("/login", "/register");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/login", "/register");
     }
 }

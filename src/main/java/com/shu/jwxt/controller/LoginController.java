@@ -36,6 +36,10 @@ public class LoginController {
     @GetMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
                         UserVo uservo, @RequestParam String password) {
+//        UserVo cache = cacheCheck(request);
+//        if (cache != null) {
+//            return Result.success(cache);
+//        }
         User login = userService.login(uservo, password);
         uservo.setUserName(login.getUserName());
         //拿到后放入缓存
@@ -60,7 +64,7 @@ public class LoginController {
         if (!StringUtils.isEmpty(cookieValue)) {
             //删除缓存
             CookieUtils.deleteCookie(request, response, COOKIE_NAME);
-            UserVo userVo = userService.getCache(cookieValue);
+            UserVo userVo = userService.getCache(KeyPrefix.USER_KEY.getKey() +cookieValue);
             userService.delete(KeyPrefix.USER_KEY.getKey() + cookieValue);
             log.info("用户:{}注销成功", userVo.getUserId());
         }
@@ -68,15 +72,23 @@ public class LoginController {
     }
 
     @GetMapping("/hasLogin")
-    public Result hasLogin(HttpServletRequest request, HttpServletResponse response) {
+    public Result hasLogin(HttpServletRequest request) {
+        UserVo cache = cacheCheck(request);
+        if (cache != null) {
+            return Result.success(cache);
+        }
+        return Result.error(CodeMsg.SESSION_ERROR);
+    }
+
+    private UserVo cacheCheck(HttpServletRequest request) {
         String cookieValue = CookieUtils.getCookieValue(request, COOKIE_NAME);
         if (!StringUtils.isEmpty(cookieValue)) {
             UserVo cache = userService.getCache(KeyPrefix.USER_KEY.getKey() + cookieValue);
             if (cache != null) {
                 log.info("用户:{}通过缓存登录成功", cache.getUserId());
-                return Result.success(cache);
+                return cache;
             }
         }
-        return Result.error(CodeMsg.SESSION_ERROR);
+        return null;
     }
 }
