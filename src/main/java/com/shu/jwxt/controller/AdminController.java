@@ -21,18 +21,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @Slf4j
+//@Api("管理员相关Api")
 @RequestMapping("/admin")
 public class AdminController {
     private final AdminService adminService;
     private static final Integer COOKIE_MAX_AGE = 24 * 3600 * 14;
     public static final String COOKIE_NAME = "admin";
+
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
 
+//    @ApiOperation(value = "管理员登录", notes = "管理员登录")
     @PostMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
-                        String userName, String password){
+                        String userName, String password) {
         Admin login = adminService.login(userName, password);
         //拿到后放入缓存
         String uuid = UUIDUtil.uuid();
@@ -42,8 +45,9 @@ public class AdminController {
         return Result.success(userName);
     }
 
+//    @ApiOperation(value = "添加课程容量", notes = "添加课程容量")
     @PutMapping("/upDateLesson")
-    public Result upDateLesson(int lessonId,int num){
+    public Result upDateLesson(int lessonId, int num) {
         adminService.upDateLesson(lessonId, num);
         log.info("管理员:更新课程{}成功", lessonId);
         return Result.success();

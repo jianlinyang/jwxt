@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @Slf4j
+//@Api("用户相关Api")
 public class LoginController {
     private final UserService userService;
     private static final Integer COOKIE_MAX_AGE = 24 * 3600 * 14;
@@ -33,9 +34,10 @@ public class LoginController {
         this.userService = userService;
     }
 
+//    @ApiOperation(value = "登录接口", notes = "登录")
     @PostMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
-                        UserVo uservo, @RequestParam String password) {
+                        @RequestParam(required = false)  UserVo uservo, @RequestParam String password) {
         User login = userService.login(uservo, password);
         uservo.setUserName(login.getUserName());
         //拿到后放入缓存
@@ -45,14 +47,15 @@ public class LoginController {
         log.info("用户:{}通过数据库登录成功", uservo.getUserId());
         return Result.success(uservo);
     }
-
+//    @ApiOperation(value = "注册接口", notes = "注册")
     @PostMapping("/register")
-    public Result register(UserVo uservo, @RequestParam String password) {
+    public Result register(@RequestParam UserVo uservo, @RequestParam String password) {
         userService.register(uservo, password);
         log.info("用户:{}注册成功", uservo.getUserId());
         return Result.success();
     }
 
+//    @ApiOperation(value = "注销", notes = "注销")
     @PostMapping("/logout")
     public Result logout(HttpServletRequest request, HttpServletResponse response) {
         String cookieValue = CookieUtils.getCookieValue(request, COOKIE_NAME);
@@ -65,7 +68,7 @@ public class LoginController {
         }
         return Result.success();
     }
-
+//    @ApiOperation(value = "缓存登录接口", notes = "如果已经登录再次请求login就会转发到这")
     @GetMapping("/hasLogin")
     public Result hasLogin(HttpServletRequest request) {
         UserVo cache = cacheCheck(request);

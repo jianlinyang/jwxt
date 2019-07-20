@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 /**
  * @author yang
  * @date 2019/7/18 13:48

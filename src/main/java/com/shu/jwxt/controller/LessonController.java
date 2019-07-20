@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
+//@Api("课程相关Api")
 @RequestMapping("/home")
 public class LessonController {
     private final LessonService lessonService;
@@ -26,6 +27,7 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
+//    @ApiOperation(value = "查询已选课程", notes = "查询已选课程")
     @GetMapping("/myLesson")
     public Result myLesson(HttpServletRequest request, int pageNum, int pageSize) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
@@ -33,14 +35,16 @@ public class LessonController {
         return Result.success(lessonVos);
     }
 
+//    @ApiOperation(value = "查询所有课程", notes = "查询所有课程")
     @GetMapping("/listLesson")
     public Result listLesson(int pageNum, int pageSize) {
         List<Lesson> lessons = lessonService.selectAllLesson(pageNum, pageSize);
         return Result.success(lessons);
     }
 
+//    @ApiOperation(value = "选课", notes = "选课")
     @PostMapping("/selectLesson")
-    public Result listLesson(HttpServletRequest request,int lessonId){
+    public Result listLesson(HttpServletRequest request, int lessonId) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
         lessonService.select(userVo.getUserId(), lessonId);
         return Result.success();
@@ -53,11 +57,12 @@ public class LessonController {
      * 排队中则返回0。
      * 查看是否生成秒杀订单。
      */
+//    @ApiOperation(value = "查询选课结果", notes = "查询选课结果")
     @GetMapping("/result")
     @ResponseBody
-    public Result selectLessonResult(HttpServletRequest request,int lessonId) {
+    public Result selectLessonResult(HttpServletRequest request, int lessonId) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
-        Integer res= lessonService.getResult(userVo.getUserId(), lessonId);
+        Integer res = lessonService.getResult(userVo.getUserId(), lessonId);
         return Result.success(res);
     }
 }
