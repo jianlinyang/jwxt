@@ -3,7 +3,6 @@ package com.shu.jwxt.rabbitmq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  * @author yang
@@ -19,7 +18,6 @@ public class MQSender {
     }
 
     public void send(Object message) {
-        String msg = "hello";
-        amqpTemplate.convertAndSend(MQConfig.QUEUE,msg);
+        amqpTemplate.convertAndSend(MQConfig.QUEUE, message);
     }
 }

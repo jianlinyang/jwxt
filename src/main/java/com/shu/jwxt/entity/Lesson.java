@@ -27,6 +27,11 @@ public class Lesson {
     private String lessonTeacher;
 
     /**
+     * 可选人数
+     */
+    private Integer capacity;
+
+    /**
      * 开课时间
      */
     @Column(name = "start_time")
@@ -90,6 +95,24 @@ public class Lesson {
      */
     public void setLessonTeacher(String lessonTeacher) {
         this.lessonTeacher = lessonTeacher;
+    }
+
+    /**
+     * 获取可选人数
+     *
+     * @return capacity - 可选人数
+     */
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * 设置可选人数
+     *
+     * @param capacity 可选人数
+     */
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     /**

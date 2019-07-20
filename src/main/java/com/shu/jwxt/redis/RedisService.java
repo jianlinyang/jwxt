@@ -28,6 +28,15 @@ public class RedisService {
         }
         redisTemplate.opsForValue().set(key, s, seconds, TimeUnit.SECONDS);
     }
+    public void set(String key, Object object) {
+        String s = "";
+        try {
+            s = MapperUtils.obj2json(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        redisTemplate.opsForValue().set(key, s);
+    }
 
     public String get(String key) {
         return redisTemplate.opsForValue().get(key);
@@ -35,5 +44,9 @@ public class RedisService {
 
     public void delete(String s) {
         redisTemplate.delete(s);
+    }
+
+    public void decrease(String s) {
+        redisTemplate.opsForValue().decrement(s);
     }
 }

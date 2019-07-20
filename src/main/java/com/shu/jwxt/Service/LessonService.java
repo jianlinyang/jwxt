@@ -12,9 +12,17 @@ import java.util.List;
  */
 public interface LessonService {
 
-    UserVo getUserVo(String s)  ;
+    UserVo getUserVo(String s);
 
     List<LessonVo> getLessonVos(int pageNum, int pageSize, Integer userId);
 
     List<Lesson> selectAllLesson(int pageNum, int pageSize);
+
+    void select(Integer userId, int lessonId);
+
+    Integer getResult(Integer userId, int lessonId);
+
+    boolean checkLesson(Integer userId, int lessonId);
+
+    boolean getLessonOver(int lessonId);
 }

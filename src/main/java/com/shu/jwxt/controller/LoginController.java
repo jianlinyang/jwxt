@@ -33,7 +33,7 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
                         UserVo uservo, @RequestParam String password) {
         User login = userService.login(uservo, password);
@@ -53,7 +53,7 @@ public class LoginController {
         return Result.success();
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public Result logout(HttpServletRequest request, HttpServletResponse response) {
         String cookieValue = CookieUtils.getCookieValue(request, COOKIE_NAME);
         if (!StringUtils.isEmpty(cookieValue)) {

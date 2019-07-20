@@ -39,9 +39,9 @@ public class CodeMsg {
     public static CodeMsg ORDER_NOT_EXIST = new CodeMsg(500400, "订单不存在");
 
     //秒杀模块
-    public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "商品库存不足");
-    public static CodeMsg REPEATE_MIAO_SHA = new CodeMsg(500501, "不能重复秒杀");
-    public static CodeMsg MIAOSHA_FAIL = new CodeMsg(500502, "秒杀失败");
+    public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "课程库存不足");
+    public static CodeMsg REPEATE_MIAO_SHA = new CodeMsg(500501, "不能重复抢课");
+    public static CodeMsg MIAOSHA_FAIL = new CodeMsg(500502, "抢课失败");
 
     public CodeMsg fillArgs(Object... args) {
         String format = String.format(this.msg, args);

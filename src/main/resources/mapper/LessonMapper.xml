@@ -8,6 +8,7 @@
     <id column="lesson_id" jdbcType="INTEGER" property="lessonId" />
     <result column="lesson_name" jdbcType="VARCHAR" property="lessonName" />
     <result column="lesson_teacher" jdbcType="VARCHAR" property="lessonTeacher" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>

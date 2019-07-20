@@ -8,7 +8,9 @@ public enum KeyPrefix {
     /**
      * RedisKey前缀
      */
-    USER_KEY("userKey:")
+    USER_KEY("userKey:"),
+    ADMIN_KEY("adminKey:"),
+    LESSON_KEY("lessonKey:")
     ;
     private String key;
 
