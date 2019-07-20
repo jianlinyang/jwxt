@@ -32,13 +32,7 @@ public class CodeMsg {
     public static CodeMsg ACCESS_LIMIT = new CodeMsg(500216, "访问受限");
     public static CodeMsg USER_EXIST = new CodeMsg(500217, "用户名已存在");
 
-
-    //商品模块
-
-    //订单模块
-    public static CodeMsg ORDER_NOT_EXIST = new CodeMsg(500400, "订单不存在");
-
-    //秒杀模块
+    //抢课模块
     public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "课程库存不足");
     public static CodeMsg REPEATE_MIAO_SHA = new CodeMsg(500501, "不能重复抢课");
     public static CodeMsg MIAOSHA_FAIL = new CodeMsg(500502, "抢课失败");

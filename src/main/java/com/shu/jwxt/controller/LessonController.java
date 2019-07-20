@@ -27,24 +27,25 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
-//    @ApiOperation(value = "查询已选课程", notes = "查询已选课程")
+    //    @ApiOperation(value = "查询已选课程", notes = "查询已选课程")
     @GetMapping("/myLesson")
-    public Result myLesson(HttpServletRequest request, int pageNum, int pageSize) {
+    public Result myLesson(HttpServletRequest request,
+                           @RequestParam int pageNum, @RequestParam int pageSize) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
         List<LessonVo> lessonVos = lessonService.getLessonVos(pageNum, pageSize, userVo.getUserId());
         return Result.success(lessonVos);
     }
 
-//    @ApiOperation(value = "查询所有课程", notes = "查询所有课程")
+    //    @ApiOperation(value = "查询所有课程", notes = "查询所有课程")
     @GetMapping("/listLesson")
-    public Result listLesson(int pageNum, int pageSize) {
+    public Result listLesson(@RequestParam int pageNum, @RequestParam int pageSize) {
         List<Lesson> lessons = lessonService.selectAllLesson(pageNum, pageSize);
         return Result.success(lessons);
     }
 
-//    @ApiOperation(value = "选课", notes = "选课")
+    //    @ApiOperation(value = "选课", notes = "选课")
     @PostMapping("/selectLesson")
-    public Result listLesson(HttpServletRequest request, int lessonId) {
+    public Result listLesson(HttpServletRequest request, @RequestParam int lessonId) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
         lessonService.select(userVo.getUserId(), lessonId);
         return Result.success();
@@ -59,8 +60,7 @@ public class LessonController {
      */
 //    @ApiOperation(value = "查询选课结果", notes = "查询选课结果")
     @GetMapping("/result")
-    @ResponseBody
-    public Result selectLessonResult(HttpServletRequest request, int lessonId) {
+    public Result selectLessonResult(HttpServletRequest request, @RequestParam int lessonId) {
         UserVo userVo = lessonService.getUserVo(CookieUtils.getCookieValue(request, LoginController.COOKIE_NAME));
         Integer res = lessonService.getResult(userVo.getUserId(), lessonId);
         return Result.success(res);

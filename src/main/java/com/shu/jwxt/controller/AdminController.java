@@ -7,10 +7,7 @@ import com.shu.jwxt.result.Result;
 import com.shu.jwxt.utils.CookieUtils;
 import com.shu.jwxt.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +32,7 @@ public class AdminController {
 //    @ApiOperation(value = "管理员登录", notes = "管理员登录")
     @PostMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
-                        String userName, String password) {
+                        @RequestParam String userName,@RequestParam String password) {
         Admin login = adminService.login(userName, password);
         //拿到后放入缓存
         String uuid = UUIDUtil.uuid();
@@ -47,7 +44,7 @@ public class AdminController {
 
 //    @ApiOperation(value = "添加课程容量", notes = "添加课程容量")
     @PutMapping("/upDateLesson")
-    public Result upDateLesson(int lessonId, int num) {
+    public Result upDateLesson(@RequestParam int lessonId,@RequestParam int num) {
         adminService.upDateLesson(lessonId, num);
         log.info("管理员:更新课程{}成功", lessonId);
         return Result.success();
