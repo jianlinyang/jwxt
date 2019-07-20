@@ -14,6 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LessonVo {
+    /**
+     * id
+     */
+    private Integer id;
 
     /**
      * 课程名

@@ -8,6 +8,7 @@ import com.shu.jwxt.vo.LessonVo;
 import com.shu.jwxt.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,5 +40,10 @@ public class LessonController {
     public Result listLesson(int pageNum, int pageSize) {
         List<Lesson> lessons = lessonService.selectAllLesson(pageNum, pageSize);
         return Result.success(lessons);
+    }
+
+    @PostMapping("/selectLesson")
+    public Result listLesson(int lessonId){
+        return Result.success();
     }
 }
