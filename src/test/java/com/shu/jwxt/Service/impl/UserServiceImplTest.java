@@ -27,7 +27,7 @@ public class UserServiceImplTest {
         User user = new User();
         user.setUserId(17723942);
         user.setUserName("yang");
-        user.setPassword("yyyy123");
+        user.setPassword("yyyy13");
         user.setCreatDate(new Date());
         userService.insert(user);
     }
