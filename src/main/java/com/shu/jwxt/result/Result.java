@@ -13,7 +13,7 @@ public class Result<T> {
     /**
      * 返回码
      */
-    private Integer code;
+    private String code;
     /**
      * 消息
      */
@@ -25,13 +25,13 @@ public class Result<T> {
 
 
     private Result(T data) {
-        this.code = 0;
+        this.code = "0";
         this.msg = "success";
         this.data = data;
     }
 
     private Result() {
-        this.code = 0;
+        this.code = "0";
         this.msg = "success";
         this.data = null;
     }

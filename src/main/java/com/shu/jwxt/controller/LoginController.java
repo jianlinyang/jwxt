@@ -72,8 +72,8 @@ public class LoginController {
         return Result.success();
     }
 
-    //    @ApiOperation(value = "缓存登录接口", notes = "如果已经登录再次请求login就会转发到这")
-    @GetMapping("/hasLogin")
+    //    @ApiOperation(value = "缓存登录接口", notes = "获取用户信息")
+    @GetMapping("/userInfo")
     public Result hasLogin(HttpServletRequest request) {
         UserVo cache = cacheCheck(request);
         if (cache != null) {
