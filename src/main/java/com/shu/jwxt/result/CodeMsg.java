@@ -31,6 +31,7 @@ public class CodeMsg {
     public static CodeMsg PASSWORD_ERROR = new CodeMsg(500215, "用户名密码错误");
     public static CodeMsg ACCESS_LIMIT = new CodeMsg(500216, "访问受限");
     public static CodeMsg USER_EXIST = new CodeMsg(500217, "用户名已存在");
+    public static CodeMsg HAS_LOGIN = new CodeMsg(500217, "您已登录,请勿重复登录");
 
     //抢课模块
     public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "课程库存不足");

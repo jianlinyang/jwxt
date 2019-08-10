@@ -1,7 +1,9 @@
 package com.shu.jwxt.config;
 
 import com.shu.jwxt.Service.UserService;
+import com.shu.jwxt.exception.GlobalException;
 import com.shu.jwxt.redis.KeyPrefix;
+import com.shu.jwxt.result.CodeMsg;
 import com.shu.jwxt.utils.CookieUtils;
 import com.shu.jwxt.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             UserVo cache = userService.getCache(KeyPrefix.USER_KEY.getKey() + cookieValue);
             if (cache != null) {
                 log.info("您已登录");
-                response.sendRedirect("/hasLogin");
-                return false;
+                throw new GlobalException(CodeMsg.HAS_LOGIN);
             }
         }
         return true;
