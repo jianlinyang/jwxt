@@ -96,9 +96,11 @@ public class LessonServiceImpl implements LessonService {
             return lessonId;
         } else {
             boolean isOver = getLessonOver(lessonId);
-            if (!isOver) {//抢卖完了
+            if (!isOver) {
+                //抢卖完了
                 return -1;
-            } else {        //正在抢
+            } else {
+                //正在抢
                 return 0;
             }
         }
@@ -107,7 +109,7 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public boolean getLessonOver(int lessonId) {
         String s = redisService.get(KeyPrefix.LESSON_KEY.getKey() + lessonId);
-        if(StringUtils.isEmpty(s)) {
+        if (StringUtils.isEmpty(s)) {
             return false;
         }
         return Integer.valueOf(s) > 0;

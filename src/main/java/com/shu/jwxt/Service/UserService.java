@@ -14,7 +14,7 @@ public interface UserService {
 
     void update(User user);
 
-    User login(UserVo userVo,String password);
+    User login(Integer userId, String password);
 
     void register(UserVo uservo, String password);
 

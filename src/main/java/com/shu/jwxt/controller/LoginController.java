@@ -34,20 +34,23 @@ public class LoginController {
         this.userService = userService;
     }
 
-//    @ApiOperation(value = "登录接口", notes = "登录")
+    //    @ApiOperation(value = "登录接口", notes = "登录")
     @PostMapping("/login")
     public Result login(HttpServletRequest request, HttpServletResponse response,
-                        @RequestParam(required = false)  UserVo uservo, @RequestParam String password) {
-        User login = userService.login(uservo, password);
-        uservo.setUserName(login.getUserName());
+                        @RequestParam Integer userId, @RequestParam String password) {
+        User login = userService.login(userId, password);
+        UserVo userVo = new UserVo();
+        userVo.setUserName(login.getUserName());
+        userVo.setUserId(userId);
         //拿到后放入缓存
         String uuid = UUIDUtil.uuid();
         CookieUtils.setCookie(request, response, COOKIE_NAME, uuid, COOKIE_MAX_AGE);
-        userService.setCache(KeyPrefix.USER_KEY.getKey() + uuid, uservo, Long.valueOf(COOKIE_MAX_AGE));
-        log.info("用户:{}通过数据库登录成功", uservo.getUserId());
-        return Result.success(uservo);
+        userService.setCache(KeyPrefix.USER_KEY.getKey() + uuid, userVo, Long.valueOf(COOKIE_MAX_AGE));
+        log.info("用户:{}通过数据库登录成功", userVo.getUserId());
+        return Result.success(userVo);
     }
-//    @ApiOperation(value = "注册接口", notes = "注册")
+
+    //    @ApiOperation(value = "注册接口", notes = "注册")
     @PostMapping("/register")
     public Result register(@RequestParam UserVo uservo, @RequestParam String password) {
         userService.register(uservo, password);
@@ -55,7 +58,7 @@ public class LoginController {
         return Result.success();
     }
 
-//    @ApiOperation(value = "注销", notes = "注销")
+    //    @ApiOperation(value = "注销", notes = "注销")
     @PostMapping("/logout")
     public Result logout(HttpServletRequest request, HttpServletResponse response) {
         String cookieValue = CookieUtils.getCookieValue(request, COOKIE_NAME);
@@ -68,7 +71,8 @@ public class LoginController {
         }
         return Result.success();
     }
-//    @ApiOperation(value = "缓存登录接口", notes = "如果已经登录再次请求login就会转发到这")
+
+    //    @ApiOperation(value = "缓存登录接口", notes = "如果已经登录再次请求login就会转发到这")
     @GetMapping("/hasLogin")
     public Result hasLogin(HttpServletRequest request) {
         UserVo cache = cacheCheck(request);

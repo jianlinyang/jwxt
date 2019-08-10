@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(UserVo userVo, String password) {
-        User dbUser = findByUserId(userVo.getUserId());
+    public User login(Integer userId, String password) {
+        User dbUser = findByUserId(userId);
         if (dbUser == null || !MD5Util.md5(password).equals(dbUser.getPassword())) {
             throw new GlobalException(CodeMsg.PASSWORD_ERROR);
         }
