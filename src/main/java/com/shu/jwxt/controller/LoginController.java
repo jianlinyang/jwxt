@@ -93,4 +93,10 @@ public class LoginController {
         }
         return null;
     }
+
+//    @GetMapping("hello")
+//    public String say(HttpServletRequest request, HttpServletResponse response) {
+//        CookieUtils.setCookie(request, response, "token", "test");
+//        return "hello";
+//    }
 }
