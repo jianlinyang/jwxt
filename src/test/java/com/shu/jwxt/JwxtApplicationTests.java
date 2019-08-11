@@ -1,21 +1,23 @@
 package com.shu.jwxt;
 
-import com.shu.jwxt.entity.Admin;
+import com.shu.jwxt.Service.LessonService;
+import com.shu.jwxt.vo.LessonVo;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class JwxtApplicationTests {
+    @Autowired
+    private LessonService lessonService;
 
     @Test
-    public void contextLoads() throws Exception {
-        BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("test.xml"));
-        Admin admin =(Admin) beanFactory.getBean("admin");
-        admin.setUserName("yy");
-        System.out.println(admin.getUserName());
+    public void getLessonVos() {
+        List<LessonVo> lessonVos = lessonService.getLessonVos(1, 3, 17723942);
     }
-
 }
